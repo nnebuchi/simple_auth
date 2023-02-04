@@ -26,7 +26,7 @@ Route::group(['middleware' => ['access_token']], function () {
     });
 });
 
-Route::group(['middleware' => ['auth:sanctum', 'verified_user']], function (Request $request) {
+Route::group(['middleware' => ['auth:sanctum', 'verified_user']], function () {
     Route::get('/user-profile', function(Request $request){
         return $request->user();
     });

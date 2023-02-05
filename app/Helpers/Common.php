@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Response;
 use Laravel\Sanctum\PersonalAccessToken;
 
 if (!function_exists('generateOTP')) {
@@ -28,7 +29,12 @@ if (!function_exists('generateOTP')) {
             // ]); 
             // break;
         }
-        return $feedback;
+        return Response::json([
+            'status'=>'fail',
+            'errors'=> $feedback
+        ], 200);
+            
+        
     }
 
     function getUser($request){

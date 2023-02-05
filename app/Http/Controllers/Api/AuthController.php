@@ -34,5 +34,17 @@ class AuthController extends Controller
         }
         return AuthService::login(sanitize_input($request->email), sanitize_input($request->password));
     }
+
+    public function verifyOTP(Request $request){
+        $validator = Validator::make($request->all(),[
+            'email'         => 'required|email',
+            'otp'           => 'required|integer',
+        ]);
+        
+        if ($validator->fails()) {
+            return returnValidationError($validator->errors(), 'Verification Failed'); 
+        }
+        return AuthService::verifyOTP(sanitize_input($request->otp), sanitize_input($request->email));
+    }
     
 }

@@ -23,6 +23,7 @@ Route::group(['middleware' => ['access_token']], function () {
     Route::group(['prefix' => 'auth'], function () {
         Route::post('/register', [AuthController::class, 'register']);
         Route::post('/login', [AuthController::class, 'login']);
+        Route::post('/verify-otp', [AuthController::class, 'verifyOTP']);
     });
 });
 

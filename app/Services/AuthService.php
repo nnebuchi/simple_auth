@@ -35,7 +35,7 @@ class AuthService
 
     public static function login($email, $password){
         // the DB class was used instead of User Model because we needed to access the pasword property which is hidden on the User Model
-        // $user = DB::table('users')->where('email',$email)->first();
+        $user = DB::table('users')->where('email',$email)->first();
         // if($user && (is_null($user->verified_at))){
         //     return Response::json([
         //         'status'        => 'success',
@@ -45,7 +45,7 @@ class AuthService
         //     ], 200);
         // }
 
-        $user = User::where('email', $email);
+        // $user = User::where('email', $email);
 
         if($user && Hash::check($password, $user->password)){
            return self::authenticate(($user->email));

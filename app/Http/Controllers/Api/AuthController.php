@@ -46,5 +46,11 @@ class AuthController extends Controller
         }
         return AuthService::verifyOTP(sanitize_input($request->otp), sanitize_input($request->email));
     }
+
+    public function logout(Request $request)
+    {
+        return  AuthService::logout($request);
+        
+    }
     
 }

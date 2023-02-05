@@ -74,7 +74,7 @@ class AuthService
     public static function verifyOTP($otp, $email){
         $user = User::where(['email'=>$email, 'otp'=>$otp])->first();
         if(is_null($user)){
-            return response::json([
+            return Response::json([
                 'status'    => 'fail',
                 'message'   => 'incorrect code',
                 'error'     => 'incorrect code'
@@ -84,6 +84,13 @@ class AuthService
         $user->email_verified_at = date('Y-m-d, h:i:s', time());
         $user->save();
         return self::authenticate($user->email);
+    }
+
+    public static function logout($request){
+        $request->user()->tokens()->delete();
+        return Response::json([
+            'status'=>'success','message' => 'Logged out successfully'
+        ], 200);
     }
 
 }

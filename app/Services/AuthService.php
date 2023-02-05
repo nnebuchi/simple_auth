@@ -71,4 +71,19 @@ class AuthService
         ]); // Status code here
     }
 
+    public static function verifyOTP($otp, $email){
+        $user = User::where(['email'=>$email, 'otp'=>$otp])->first();
+        if(is_null($user)){
+            return response::json([
+                'status'    => 'fail',
+                'message'   => 'incorrect code',
+                'error'     => 'incorrect code'
+            ], 200);
+        }
+        $user->otp = null;
+        $user->email_verified_at = date('Y-m-d, h:i:s', time());
+        $user->save();
+        return self::authenticate($user->email);
+    }
+
 }

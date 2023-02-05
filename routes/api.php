@@ -27,10 +27,11 @@ Route::group(['middleware' => ['access_token']], function () {
     });
 });
 
-Route::group(['middleware' => ['auth:sanctum', 'verified_user']], function () {
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/user-profile', function(Request $request){
         return $request->user();
-    });
+    })->middleware('verified_user');
 });
 
 
